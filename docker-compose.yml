@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  cleanarchitecture.webapi:
+    image: ${DOCKER_REGISTRY-}cleanarchitecturewebapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3200:3200"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    depends_on:
+      - mssql
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "YourStrong@Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql-data:/var/opt/mssql
+
+volumes:
+  mssql-data:
