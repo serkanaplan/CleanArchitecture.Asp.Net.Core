@@ -38,7 +38,7 @@ public sealed class CarService : ICarService
 
     public async Task<PaginationResult<Car>> GetAllAsync(GetAllCarQuery request, CancellationToken cancellationToken)
     {
-        PaginationResult<Car> cars = 
+        PaginationResult<Car> cars =  
             await _carRepository
             .GetWhere(p=> p.Name.ToLower().Contains(request.Search.ToLower()))     
             .OrderBy(p=> p.Name)
